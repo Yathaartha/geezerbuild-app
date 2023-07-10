@@ -29,6 +29,12 @@ const AssignmentsTable = () => {
   }, []);
 
   const columns = [
+    {
+      title: "S.N.",
+      dataIndex: "num",
+      key: "num",
+      render: (text, record, index) => index + 1 + ".",
+    },
     { title: "Title", dataIndex: "title", key: "title" },
     {
       title: "Detail",
@@ -69,14 +75,6 @@ const AssignmentsTable = () => {
     <div>
       <TableTitle>Assignments Table</TableTitle>
       {renderTable()}
-
-      <AssignmentSubmissionForm
-        isModalOpen={isModalOpen}
-        title="Submit Your Assignment"
-        handleOk={handleOk}
-        handleCancel={handleCancel}
-        selectedAssignment={selectedAssignment}
-      />
     </div>
   );
 };

@@ -3,10 +3,12 @@ import authReducer from "../components/login/authSlice";
 import assignmentSlice, {
   getAssignments,
 } from "../components/assignments/assignmentSlice";
+import submissionSlice from "../components/submissions/submissionSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   assignment: assignmentSlice,
+  submission: submissionSlice,
 });
 
 export const store = configureStore({
