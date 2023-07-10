@@ -29,6 +29,9 @@ const Footer = () => {
           </span>
         )}
       </LinkList>
+      <div style={{ textAlign: "center", paddingTop: "20px" }}>
+        Copyright Yathaartha 2023. All Rights Reserved
+      </div>
     </div>
   );
 };
