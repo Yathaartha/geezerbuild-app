@@ -1,10 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAssignments } from "./assignmentSlice";
-import { Space, Table } from "antd";
+import AssignmentSlice, { getAssignments } from "./assignmentSlice";
+import { Modal, Space, Table } from "antd";
 import { TableTitle } from "./AssignmentsTable.css";
+import AssignmentSubmissionForm from "./AssignmentSubmissionForm";
 
 const AssignmentsTable = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const dispatch = useDispatch();
   const { list } = useSelector((state) => state.assignment);
 
@@ -32,7 +48,14 @@ const AssignmentsTable = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a>Submit</a>
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              setSelectedAssignment(record);
+              showModal();
+            }}>
+            Submit
+          </a>
         </Space>
       ),
     },
@@ -46,6 +69,14 @@ const AssignmentsTable = () => {
     <div>
       <TableTitle>Assignments Table</TableTitle>
       {renderTable()}
+
+      <AssignmentSubmissionForm
+        isModalOpen={isModalOpen}
+        title="Submit Your Assignment"
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        selectedAssignment={selectedAssignment}
+      />
     </div>
   );
 };

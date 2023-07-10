@@ -16,10 +16,28 @@ export const getAssignments = createAsyncThunk(
   }
 );
 
+export const submitAssignment = createAsyncThunk(
+  "assignments/create",
+  async ({ file, userId, assignmentId }) => {
+    try {
+      const response = await baseApi.post("/assignments/create", {
+        submission: file,
+        userId,
+        assignmentId,
+      });
+
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
 export const assignmentSlice = createSlice({
   name: "assignment",
   initialState: {
     list: [],
+    submission: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -29,6 +47,13 @@ export const assignmentSlice = createSlice({
     builder.addCase(getAssignments.fulfilled, (state, action) => {
       state.status = "idle";
       state.list = action.payload;
+    });
+    builder.addCase(submitAssignment.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(submitAssignment.fulfilled, (state, action) => {
+      state.status = "idle";
+      state.submission = action.payload;
     });
   },
 });

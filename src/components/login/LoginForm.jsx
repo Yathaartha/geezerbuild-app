@@ -5,10 +5,12 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginAsync } from "./authSlice";
 import { toast } from "react-toastify";
+import { useCookies } from "react-cookie";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(["token"]);
 
   const onFinish = async (values) => {
     try {
@@ -20,6 +22,8 @@ const LoginForm = () => {
         toast("Login Success", {
           type: "success",
         });
+        setCookie("token", response.payload.data.accessToken);
+        setCookie("userId", response.payload.data.dataValues.id);
         navigate("/");
       } else {
         toast("Invalid Credentials", {
