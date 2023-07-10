@@ -1,8 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authReducer from "../components/login/authSlice";
+import assignmentSlice, {
+  getAssignments,
+} from "../components/assignments/assignmentSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  assignment: assignmentSlice,
 });
 
 export const store = configureStore({
@@ -13,3 +17,5 @@ export const store = configureStore({
       immutableCheck: false,
     }),
 });
+
+store.dispatch(getAssignments());
