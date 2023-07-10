@@ -75,6 +75,13 @@ const AssignmentsTable = () => {
     <div>
       <TableTitle>Assignments Table</TableTitle>
       {renderTable()}
+      <AssignmentSubmissionForm
+        isModalOpen={isModalOpen}
+        title="Submit Your Assignment"
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        selectedAssignment={selectedAssignment}
+      />
     </div>
   );
 };

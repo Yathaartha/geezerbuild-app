@@ -1,0 +1,5 @@
+.ant-upload-icon span,
+.ant-upload-list-item-name,
+.ant-upload-list-item-actions button span {
+  color: blue !important;
+}
